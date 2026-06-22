@@ -1,0 +1,58 @@
+{
+  "name": "lumacart-ecommerce",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "server": "node backend/server.cjs",
+    "server:dev": "nodemon backend/server.cjs",
+    "electron": "electron .",
+    "desktop": "concurrently --kill-others --success first --names BACKEND,FRONTEND,ELECTRON \"npm run server\" \"npm run dev -- --host 127.0.0.1\" \"wait-on http-get://127.0.0.1:5050/api/health http-get://127.0.0.1:5173 && ./node_modules/.bin/electron .\"",
+    "desktop:debug": "ELECTRON_ENABLE_LOGGING=1 LUMACART_OPEN_DEVTOOLS=true concurrently --kill-others --success first --names BACKEND,FRONTEND,ELECTRON \"npm run server\" \"npm run dev -- --host 127.0.0.1\" \"wait-on http-get://127.0.0.1:5050/api/health http-get://127.0.0.1:5173 && ./node_modules/.bin/electron .\"",
+    "package:mac": "npm run build && electron-forge package --platform=darwin --arch=arm64",
+    "make:mac": "npm run build && electron-forge make --platform=darwin --arch=arm64"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.11.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "lucide-react": "^1.21.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "react-router-dom": "^7.18.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.11.2",
+    "@electron-forge/maker-dmg": "^7.11.2",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.11.2",
+    "@electron/rebuild": "^4.0.4",
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^10.0.3",
+    "electron": "^42.4.1",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "globals": "^17.6.0",
+    "nodemon": "^3.1.14",
+    "vite": "^8.0.12",
+    "wait-on": "^9.0.10"
+  },
+  "main": "electron/main.cjs",
+  "productName": "LumaCart",
+  "description": "A portfolio e-commerce desktop application built with React, Express, SQLite, and Electron.",
+  "author": "Matthew Plants",
+  "license": "MIT",
+  "config": {
+    "forge": "./forge.config.cjs"
+  }
+}
